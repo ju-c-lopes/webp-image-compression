@@ -7,10 +7,11 @@ if [ ! -z "$1" ]; then
 fi
 
 apt-get update
-apt-get install -y libjpeg-dev libpng-dev libtiff-dev libgif-dev
+apt-get install -y zip libjpeg-dev libpng-dev libtiff-dev libgif-dev
 CWEBP="$PWD/task-dep/bin/cwebp"
 DWEBP="$PWD/task-dep/bin/dwebp"
 
+DIR=$PWD
 INPUT_DIR="$PWD/images"
 OUTPUT_DIR="$PWD/optimized"
 
@@ -29,6 +30,10 @@ for img in *.jpg *.jpeg *.png; do
     ((total+=original_size))
     ((optimized+=optimized_size))
 done
+
+sleep 5
+cd ..
+zip -r "$DIR/optimized.zip" $OUTPUT_DIR
 
 echo "Total size non-optimized: $((total / 1024)) KB."
 echo "Total size optimized: $((optimized / 1024)) KB.\n"

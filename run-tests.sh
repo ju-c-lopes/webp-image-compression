@@ -19,7 +19,7 @@ uv venv .convert
 source .convert/bin/activate
 uv pip install pytest==8.4.1
 
-./convert-run.sh
+$PWD/convert-run.sh
 
 sleep 5
 # Install other dependencies if needed (remember, by default this is a different venv

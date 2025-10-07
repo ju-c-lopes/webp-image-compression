@@ -28,6 +28,4 @@ sleep 5
 # Install other dependencies if needed (remember, by default this is a different venv
 # than your agent's)
 
-echo "$PWD/tests/test_outputs.py"
-
 uv run pytest $TEST -rA

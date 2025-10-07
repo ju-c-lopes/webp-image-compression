@@ -13,7 +13,7 @@ WebP offers significant **file size reduction** with **minimal quality loss**, h
 You can **run the complete workflow** online without installing anything locally.
 Click below to open the project in Google Colab:
 
-[🔗 Run WebP Image Compression on Google Colab](https://colab.research.google.com/drive/1GeA-MRde1dOWwkSyiPb7yUdl_slI2TWB?usp=sharing)
+[🔗 Run WebP Image Compression on Google Colab](https://colab.research.google.com/drive/1Cx_IyA78w_ao68Zu8rjKskQNxpifNlLj?usp=sharing)
 
 ---
 

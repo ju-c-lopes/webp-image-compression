@@ -15,6 +15,9 @@ if [ "$PWD" = "/" ]; then
     exit 1
 fi
 
+TEST="$PWD/tests/test_outputs.py"
+echo "Running tests in $TEST"
+
 uv venv .convert
 source .convert/bin/activate
 uv pip install pytest==8.4.1
@@ -25,4 +28,6 @@ sleep 5
 # Install other dependencies if needed (remember, by default this is a different venv
 # than your agent's)
 
-uv run pytest $PWD/tests/test_outputs.py -rA
+echo "$PWD/tests/test_outputs.py"
+
+uv run pytest $TEST -rA

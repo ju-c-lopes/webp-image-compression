@@ -4,7 +4,9 @@ _SEO-Friendly Image Optimization for the Web_
 
 ---
 
-This repository provides a simple and effective way to convert and compress _`jpg`_, _`jpeg`_, and _`png`_ images into **WebP format**, which is officially _recommended by Google_ for improving page performance and Core Web Vitals scores.
+This repository provides a simple and effective way to convert and compress _`jpg`_, _`jpeg`_, _`png`_, _`webp`_\*, _`tif`_ and _`tiff`_ images into **WebP format**, which is officially _recommended by Google_ for improving page performance and Core Web Vitals scores.
+
+\* <small>*unoptimized webp images*</small>
 
 WebP offers significant **file size reduction** with **minimal quality loss**, helping _websites load faster_, consume _less bandwidth_, and _enhance user experience_, essential metrics for SEO.
 
@@ -41,6 +43,21 @@ cd webp-image-compression
 ### Place your images
 
 Put all your `.jpg`, `.jpeg`, or `.png` files inside the **"images" folder**.
+
+##### OR
+
+
+Instead of uploading images manually, you can also provide a file named `image-urls.txt` in the project root.  
+This file should contain one image URL per line. Example:
+
+```bash
+https://example.com/images/photo.jpg
+https://mysite.com/media/banner.webp
+```
+
+
+If this file exists, the script will automatically download all images into the `images-backup/` folder before starting the conversion process.
+
 
 ### Run the converter
 

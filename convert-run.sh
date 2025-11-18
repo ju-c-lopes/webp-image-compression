@@ -48,6 +48,31 @@ declare -a oversized_images=()
 
 echo "🎯 Target max size: ${MAX_SIZE_KB} KB | floor quality: ${MIN_QUALITY}"
 
+URL_LIST_FILE="$DIR/image-urls.txt"
+BACKUP_DIR="$DIR/images-backup"
+
+# Se existir um arquivo com lista de URLs, faz o download das imagens
+if [ -f "$URL_LIST_FILE" ]; then
+    echo "📥 Downloading images from URL list: $URL_LIST_FILE"
+    mkdir -p "$BACKUP_DIR"
+
+    # Lê cada linha do arquivo como uma URL
+    while IFS= read -r url; do
+        # ignora linhas vazias
+        [ -z "$url" ] && continue
+
+        echo "⬇️  Downloading $url"
+        # -q  → silencioso
+        # -P  → diretório de destino
+        wget -q -P "$BACKUP_DIR" "$url" || echo "⚠️ Failed to download: $url"
+    done < "$URL_LIST_FILE"
+
+    echo "✅ Finished downloading images to $BACKUP_DIR"
+else
+    echo "ℹ️ No URL list found at $URL_LIST_FILE (skipping URL download step)."
+fi
+unset URL_LIST_FILE BACKUP_DIR
+
 # Ajusta permissão no arquivo de hashes original, se existir
 if [ -e "$PWD/task-dep/original-hashes.json" ]; then
     chmod 777 "$PWD/task-dep/original-hashes.json"
@@ -128,8 +153,8 @@ cd images
 # Ativa glob case-insensitive (pega .JPG, .Jpeg, etc.)
 shopt -s nocaseglob
 
-# Loop principal: percorre todas as imagens .jpg/.jpeg/.png
-for img in *.jpg *.jpeg *.png; do
+# Loop principal: percorre todas as imagens .jpg/.jpeg/.png/ .webp/ .tif/ .tiff
+for img in *.jpg *.jpeg *.png *.webp *.tif *.tiff; do
     # Se não existir nenhum arquivo que case com o glob, pula
     [ -e "$img" ] || continue
 
@@ -222,7 +247,7 @@ sleep 5
 cd ..
 
 # Cria um zip com todas as imagens otimizadas
-zip -r "$DIR/optimized.zip" "$OUTPUT_DIR"
+zip -j "$DIR/optimized.zip" "$OUTPUT_DIR"
 
 # Resumo dos tamanhos total original x otimizado (em KB)
 echo "Total size non-optimized: $((total / 1024)) KB."

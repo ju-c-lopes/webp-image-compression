@@ -50,6 +50,20 @@ The script below will convert all supported images into **WebP format** at `80 c
 ./convert-run.sh 80
 ```
 
+#### Tune the 100 KB guardrail
+
+The converter now keeps retrying until each file respects Google's 100 KB recommendation (or the ceiling you set). Adjust the automation with environment variables:
+
+```bash
+MAX_SIZE_KB=120 MIN_QUALITY=60 QUALITY_STEP=3 ./convert-run.sh 85
+```
+
+- `MAX_SIZE_KB` – per-image size budget in KB (default `100`).
+- `MIN_QUALITY` – floor quality when backing off (default `50`).
+- `QUALITY_STEP` – quality decrement per retry (default `5`).
+- `RESORT_TO_SIZE` – set to `false` to skip the final `cwebp -size` pass.
+- `CWEBP_EXTRA_FLAGS` – advanced flags forwarded to `cwebp` (defaults to dense settings: `-m 6 -pass 10 -af -sns 50 -f 70`).
+
 ### Retrieve your optimized images
 
 The converted images will be saved in the `root directory project` and automatically zipped into `optimized.zip` for easy download.
@@ -97,6 +111,7 @@ This command will run tests that validate conversion of images.
 <img src="https://i.imgur.com/65UAniY.png" alt="Juliano" title="Juliano" width="150" style="border-radius: 50%">
 
 Developed by Juliano Lopes
+
 <div>
 <a href="https://www.linkedin.com/in/juliano-lopes-votorantim-sp/" target="_blank">
 <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank">

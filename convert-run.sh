@@ -48,6 +48,7 @@ declare -a oversized_images=()
 
 echo "🎯 Target max size: ${MAX_SIZE_KB} KB | floor quality: ${MIN_QUALITY}"
 
+DIR="${DIR:-$PWD}"
 URL_LIST_FILE="$DIR/image-urls.txt"
 BACKUP_DIR="$DIR/images-backup"
 
